@@ -40,3 +40,17 @@ class DB:
         self._session.add(new_user)
         self._session.commit()
         return new_user
+
+    def find_user_by(self, **kwargs):
+        """_find_user
+
+        Return:
+            user: _description_
+        """
+        if not kwargs:
+            raise InvalidRequestError
+
+        user = self.__session.query(User).filter_by(**kwargs)
+        if not user:
+            raise NoResultFound
+        return user
